@@ -4,29 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Meta</title>
-    <link rel="stylesheet" href="Calculadora.css">
+    <link rel="stylesheet" href="Calculadora.css"> <!-- Link para o arquivo CSS que contém estilos -->
+    
 </head>
 <body>
-    <div class="container">
-        <h1>Calculadora de Meta</h1>
+    <button id="sugestoes-button" onclick="abrirNovaJanela()">Para dúvidas ou sugestões, clique aqui</button> <!-- Botão atualizado -->
+    <div class="container"> <!-- Div que envolve todo o conteúdo do formulário -->
+        <h1>Calculadora de Meta</h1> <!-- Título principal do formulário -->
+        <!-- Grupo de entrada para a meta diária de casos -->
         <div class="input-group">
             <label for="metaDiaria">Meta diária de casos:</label>
             <input type="number" id="metaDiaria" placeholder="Informe a meta diária">
         </div>
+        <!-- Grupo de entrada para a carga horária -->
         <div class="input-group">
             <label for="cargaHoraria">Carga horária:</label>
             <input type="text" id="cargaHoraria" placeholder="00:00">
         </div>
+        <!-- Grupo de entrada para o tempo a ser considerado -->
         <div class="input-group">
             <label for="horasConsideradas">Tempo a ser considerado:</label>
             <input type="text" id="horasConsideradas" placeholder="00:00">
         </div>
+        <!-- Botão para calcular -->
         <button onclick="calcularMeta()">Calcular</button>
+        <!-- Div para exibir o resultado -->
         <div id="resultado" class="resultado"></div>
     </div>
 
-    <footer>Desenvolvido por Mateus Moreira - BKO 3P</footer>
+    <footer>Desenvolvido por Mateus Moreira - BKO 3P</footer> <!-- Rodapé da página -->
 
-    <script src="calculadora.js"></script>
+    <script src="calculadora.js"></script> <!-- Link para o arquivo JavaScript que contém a lógica de cálculo -->
+
 </body>
 </html>
