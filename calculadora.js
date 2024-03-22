@@ -9,6 +9,10 @@ inputs.forEach(function(input) {
         }
     });
 });
+ // Função para abrir uma nova janela com o link fornecido
+ function abrirNovaJanela() {
+    window.open('https://magazineluiza.workplace.com/profile.php?id=100087314237293', '_blank');
+}
 
 function calcularMeta() {
     var metaDiaria = parseFloat(document.getElementById('metaDiaria').value);
@@ -41,6 +45,6 @@ function calcularMeta() {
             <p><strong>Meta estrelas por hora: ${metaPorHora120}</p>
         `;
     }
-
+   
     document.getElementById('resultado').innerHTML = resultado;
 }
