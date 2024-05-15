@@ -8,12 +8,12 @@
     
 </head>
 <body>
-    <button id="sugestoes-button" onclick="abrirNovaJanela()">Para dúvidas ou sugestões, clique aqui</button> <!-- Botão atualizado -->
+    <button id="sugestoes-button" onclick="abrirNovaJanela()">Dúvidas e sugestões</button> <!-- Botão atualizado -->
     <div class="container"> <!-- Div que envolve todo o conteúdo do formulário -->
         <h1>Calculadora de Meta</h1> <!-- Título principal do formulário -->
         <!-- Grupo de entrada para a meta diária de casos -->
         <div class="input-group">
-            <label for="metaDiaria">Meta diária de casos:</label>
+            <label for="metaDiaria">Meta diária de casos (Nuvens):</label>
             <input type="number" id="metaDiaria" placeholder="Informe a meta diária">
         </div>
         <!-- Grupo de entrada para a carga horária -->
@@ -25,6 +25,11 @@
         <div class="input-group">
             <label for="horasConsideradas">Tempo a ser considerado:</label>
             <input type="text" id="horasConsideradas" placeholder="00:00">
+        </div>
+        <!-- Grupo de entrada para as horas extras (opcional) -->
+        <div class="input-group">
+            <label for="horasExtras">Horas Extras (Opcional): </label>
+            <input type="text" id="horasExtras" placeholder="00:00">
         </div>
         <!-- Botão para calcular -->
         <button onclick="calcularMeta()">Calcular</button>
