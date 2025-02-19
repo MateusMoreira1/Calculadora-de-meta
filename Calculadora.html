@@ -4,42 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Meta</title>
-    <link rel="stylesheet" href="Calculadora.css"> <!-- Link para o arquivo CSS que contém estilos -->
-    
+    <link rel="stylesheet" href="Calculadora.css">
 </head>
 <body>
-    <button id="sugestoes-button" onclick="abrirNovaJanela()">Dúvidas e sugestões</button> <!-- Botão atualizado -->
-    <div class="container"> <!-- Div que envolve todo o conteúdo do formulário -->
-        <h1>Calculadora de Meta</h1> <!-- Título principal do formulário -->
-        <!-- Grupo de entrada para a meta diária de casos -->
-        <div class="input-group">
+    <div class="container">
+        <h1>Calculadora de Meta</h1>
+
+        <div class="form-group">
             <label for="metaDiaria">Meta diária de casos (Nuvens):</label>
-            <input type="number" id="metaDiaria" placeholder="Informe a meta diária">
+            <input type="number" id="metaDiaria" placeholder="Informe a meta diária" class="input-field">
         </div>
-        <!-- Grupo de entrada para a carga horária -->
-        <div class="input-group">
+
+        <div class="form-group">
             <label for="cargaHoraria">Carga horária:</label>
-            <input type="text" id="cargaHoraria" placeholder="00:00">
+            <input type="text" id="cargaHoraria" placeholder="00:00" class="input-field">
         </div>
-        <!-- Grupo de entrada para o tempo a ser considerado -->
-        <div class="input-group">
+
+        <div class="form-group">
             <label for="horasConsideradas">Tempo a ser considerado:</label>
-            <input type="text" id="horasConsideradas" placeholder="00:00">
+            <input type="text" id="horasConsideradas" placeholder="00:00" class="input-field">
         </div>
-        <!-- Grupo de entrada para as horas extras (opcional) -->
-        <div class="input-group">
-            <label for="horasExtras">Horas Extras (Opcional): </label>
-            <input type="text" id="horasExtras" placeholder="00:00">
+
+        <div class="form-group">
+            <label for="horasExtras">Horas Extras (Opcional):</label>
+            <input type="text" id="horasExtras" placeholder="00:00" class="input-field">
         </div>
-        <!-- Botão para calcular -->
-        <button onclick="calcularMeta()">Calcular</button>
-        <!-- Div para exibir o resultado -->
-        <div id="resultado" class="resultado"></div>
+
+        <div class="form-group">
+            <button onclick="calcularMeta()" class="btn-calculate">Calcular Meta</button>
+        </div>
+
+        <div id="resultado" class="result-box"></div>
+
+        <div class="form-group">
+            <label for="casosFeitos"><br>Casos feitos:</label>
+            <input type="number"  id="casosFeitos" placeholder="Informe os casos feitos" class="input-field">
+        </div>
+
+        <div class="form-group">
+            <button onclick="calcularProgresso()" class="btn-calculate">Verificar Progresso</button>
+        </div>
+
+        <div id="progresso" class="result-box"></div>
     </div>
 
-    <footer>Desenvolvido por Mateus Moreira - BKO 3P</footer> <!-- Rodapé da página -->
-
-    <script src="calculadora.js"></script> <!-- Link para o arquivo JavaScript que contém a lógica de cálculo -->
-
+    <button class="btn-help" onclick="window.open('https://magazineluiza.workplace.com/profile.php?id=100087314237293', '_blank')">Dúvidas ou Sugestões</button>
+    
+    <footer class="footer-fixed">Desenvolvido por Mateus Moreira - BKO 3P</footer>
+    
+    <script src="calculadora.js"></script>
 </body>
 </html>

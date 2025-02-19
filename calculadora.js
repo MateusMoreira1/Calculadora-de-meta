@@ -1,29 +1,31 @@
-// Adicionando um event listener para o evento "keypress" em todos os campos de entrada
+// Capturando todos os inputs e adicionando o event listener para Enter
 var inputs = document.querySelectorAll('input');
-inputs.forEach(function(input) {
-    input.addEventListener('keypress', function(event) {
-        // Verifica se a tecla pressionada é "Enter" (código 13)
+inputs.forEach(function (input) {
+    input.addEventListener('keypress', function (event) {
         if (event.key === "Enter") {
-            // Chama a função calcularMeta() quando "Enter" é pressionado
-            calcularMeta();
+            event.preventDefault(); // Previne comportamento inesperado
+            if (input.id === "casosFeitos" && input.value.trim() !== "") {
+                calcularProgresso();
+            } else {
+                calcularMeta();
+            }
         }
     });
 });
- // Função para abrir uma nova janela com o link fornecido
- function abrirNovaJanela() {
-    window.open('https://magazineluiza.workplace.com/profile.php?id=100087314237293', '_blank');
-}
+
+var metaDiaDescontada = 0;
+var metaDiaTotal = 0;
 
 function calcularMeta() {
     var metaDiaria = parseFloat(document.getElementById('metaDiaria').value);
     var cargaHorariaInput = document.getElementById('cargaHoraria').value.split(":");
     var horasConsideradasInput = document.getElementById('horasConsideradas').value.split(":");
-    var horasExtrasInput = document.getElementById('horasExtras').value.trim(); // Remove espaços em branco extras e divide horas e minutos
+    var horasExtrasInput = document.getElementById('horasExtras').value.trim();
     var horasExtras = 0;
 
     if (horasExtrasInput) {
-        horasExtrasInput = horasExtrasInput.split(":");
-        horasExtras = parseInt(horasExtrasInput[0]) + (parseInt(horasExtrasInput[1]) / 60);
+        var extras = horasExtrasInput.split(":");
+        horasExtras = parseInt(extras[0]) + (parseInt(extras[1]) / 60);
     }
 
     var cargaHoraria = parseInt(cargaHorariaInput[0]) + (parseInt(cargaHorariaInput[1]) / 60);
@@ -34,30 +36,64 @@ function calcularMeta() {
         return;
     }
 
-    // Calcula a meta diária descontando o tempo considerado
-    var metaDiaDescontada = Math.ceil(metaDiaria * (cargaHoraria - horasConsideradas) / cargaHoraria);
-
-    // Calcula a meta total considerando as horas extras
-    var metaDiaTotal = metaDiaDescontada + Math.ceil(metaDiaria * horasExtras / cargaHoraria);
-
+    metaDiaDescontada = Math.ceil(metaDiaria * (cargaHoraria - horasConsideradas) / cargaHoraria);
+    metaDiaTotal = metaDiaDescontada + Math.ceil(metaDiaria * horasExtras / cargaHoraria);
     var metaHora = Math.ceil(metaDiaTotal / cargaHoraria);
 
-    // Calcula a meta de estrelas (120% da meta de nuvens)
     var resultado120 = Math.ceil(metaDiaTotal * 1.2);
     var metaPorHora120 = Math.ceil(metaHora * 1.2);
 
-    var resultado = "";
-
-    if (metaDiaDescontada === 0) {
-        resultado = "Hoje você não tem nenhuma meta definida 🙂";
-    } else {
-        resultado = `
-            <p><strong>Meta nuvens: ${metaDiaTotal}</p>
-            <p><strong>Meta nuvens por hora: ${metaHora}</p>
-            <p><strong>Meta estrelas: ${resultado120}</p>
-            <p><strong>Meta estrelas por hora: ${metaPorHora120}</p>
-        `;
-    }
+    var resultado = metaDiaDescontada === 0 ? "Hoje você não tem nenhuma meta definida 🙂" : `
+        <p><strong>Meta Nuvens: ${metaDiaTotal}</strong></p>
+        <p><strong>Meta Nuvens por Hora: ${metaHora}</strong></p>
+        <p><strong>Meta Estrelas: ${resultado120}</strong></p>
+        <p><strong>Meta Estrelas por Hora: ${metaPorHora120}</strong></p>
+    `;
 
     document.getElementById('resultado').innerHTML = resultado;
+    document.getElementById('resultado').style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function calcularProgresso() {
+    var casosFeitos = parseFloat(document.getElementById('casosFeitos').value);
+    if (isNaN(casosFeitos) || casosFeitos === "") {
+        return;
+    }
+
+    if (isNaN(metaDiaTotal) || metaDiaTotal <= 0) {
+        alert("Por favor, insira valores válidos para a meta e os casos feitos.");
+        return;
+    }
+
+    var porcentagem = (casosFeitos / metaDiaTotal) * 100;
+    var resultado120 = Math.ceil(metaDiaTotal * 1.2);
+    var mensagem = "";
+
+    if (porcentagem < 50) {
+        mensagem = `Vamos, você consegue! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
+    } else if (porcentagem < 100) {
+        mensagem = `Bora que está quase! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
+    } else if (porcentagem === 100) {
+        mensagem = `Você atingiu a sua meta nuvens, parabéns! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
+    } else if (porcentagem < 120) {
+        mensagem = `Parabéns, você já bateu nuvens, agora bora chegar nas estrelas. <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
+    } else {
+        mensagem = `Parabéns, você atingiu as estrelas! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
+    }
+
+    var casosParaNuvens = Math.max(0, metaDiaTotal - casosFeitos);
+    var casosParaEstrelas = Math.max(0, resultado120 - casosFeitos);
+
+    var mensagemCasos = "";
+    if (casosParaNuvens > 0) {
+        mensagemCasos += `<p><strong>Casos restantes para atingir Nuvens: ${casosParaNuvens}</strong></p>`;
+    }
+    if (casosParaEstrelas > 0) {
+        mensagemCasos += `<p><strong>Casos restantes para atingir Estrelas: ${casosParaEstrelas}</strong></p>`;
+    }
+
+    document.getElementById('progresso').innerHTML = `${mensagem}<br>${mensagemCasos}`;
+    document.getElementById('progresso').style.display = "block";
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
