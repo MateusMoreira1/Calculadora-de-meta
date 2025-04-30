@@ -36,12 +36,12 @@ function calcularMeta() {
         return;
     }
 
-    // Cálculo com valores reais
+    // Cálculo com valores decimais reais
     const metaDescontadaReal = metaDiaria * (cargaHoraria - horasConsideradas) / cargaHoraria;
     const metaExtraReal = metaDiaria * horasExtras / cargaHoraria;
     const metaTotalReal = metaDescontadaReal + metaExtraReal;
 
-    // Arredondamento somente no final
+    // Arredondamento apenas no resultado final
     metaDiaDescontada = Math.ceil(metaDescontadaReal);
     metaDiaTotal = Math.ceil(metaTotalReal);
     const resultado120 = Math.ceil(metaDiaTotal * 1.2);
@@ -74,15 +74,15 @@ function calcularProgresso() {
     var mensagem = "";
 
     if (porcentagem < 50) {
-        mensagem = Vamos, você consegue! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%;
+        mensagem = `Vamos, você consegue! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
     } else if (porcentagem < 100) {
-        mensagem = Bora que está quase! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%;
+        mensagem = `Bora que está quase! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
     } else if (porcentagem === 100) {
-        mensagem = Você atingiu a sua meta nuvens, parabéns! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%;
+        mensagem = `Você atingiu a sua meta nuvens, parabéns! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
     } else if (porcentagem < 120) {
-        mensagem = Parabéns, você já bateu nuvens, agora bora chegar nas estrelas. <br>Porcentagem atual: ${porcentagem.toFixed(2)}%;
+        mensagem = `Parabéns, você já bateu nuvens, agora bora chegar nas estrelas. <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
     } else {
-        mensagem = Parabéns, você atingiu as estrelas! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%;
+        mensagem = `Parabéns, você atingiu as estrelas! <br>Porcentagem atual: ${porcentagem.toFixed(2)}%`;
     }
 
     var casosParaNuvens = Math.max(0, metaDiaTotal - casosFeitos);
@@ -90,15 +90,13 @@ function calcularProgresso() {
 
     var mensagemCasos = "";
     if (casosParaNuvens > 0) {
-        mensagemCasos += <p><strong>Casos restantes para atingir Nuvens: ${casosParaNuvens}</strong></p>;
+        mensagemCasos += `<p><strong>Casos restantes para atingir Nuvens: ${casosParaNuvens}</strong></p>`;
     }
     if (casosParaEstrelas > 0) {
-        mensagemCasos += <p><strong>Casos restantes para atingir Estrelas: ${casosParaEstrelas}</strong></p>;
+        mensagemCasos += `<p><strong>Casos restantes para atingir Estrelas: ${casosParaEstrelas}</strong></p>`;
     }
 
-    document.getElementById('progresso').innerHTML = ${mensagem}<br>${mensagemCasos};
+    document.getElementById('progresso').innerHTML = `${mensagem}<br>${mensagemCasos}`;
     document.getElementById('progresso').style.display = "block";
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
-
